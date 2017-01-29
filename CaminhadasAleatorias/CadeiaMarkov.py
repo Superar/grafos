@@ -15,16 +15,16 @@ def distribuicao_teorica(grafo):
 # Criação da matriz de probabilidades
 def probabilidades(grafo):
     dimensao = grafo.number_of_nodes()
-    matriz_p = nx.convert_matrix.to_numpy_matrix(grafo)
+    matriz_p = nx.convert_matrix.to_numpy_matrix(grafo)  # Matriz de adjacência
 
-    diagonal = grafo.out_degree().values()
+    diagonal = grafo.out_degree().values()  # Lista de graus de saída
     delta = np.identity(dimensao)
     for i in range(dimensao):
         if diagonal[i] != 0:
             diagonal[i] = 1. / diagonal[i]
-    delta = delta * diagonal
+    delta = delta * diagonal  # Matriz 1 / grau
 
-    return delta * matriz_p
+    return delta * matriz_p  # Retorna a matriz de função de transição
 
 
 # Caminhada aleatória com Power Method
@@ -33,7 +33,7 @@ def caminhada_d(estado_inicial, grafo, k):
     aux = p.copy()
 
     for i in range(k):
-        aux = np.dot(aux, p)
+        aux = np.dot(aux, p.transpose())
 
     return estado_inicial * aux
 
