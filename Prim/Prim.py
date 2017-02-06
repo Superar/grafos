@@ -19,6 +19,7 @@ def prim_mst(grafo, r):
         fila_q.put((no[1]['lam'], no[0]))
 
     # Algoritmo de Prim
+    while not fila_q.empty():
         u = fila_q.get()[1]
         lista_fila = [x[1] for x in fila_q.queue]
 
@@ -31,6 +32,9 @@ def prim_mst(grafo, r):
     g_out = nx.Graph()
     lista_arestas = [(grafo.node[v]['pred'], v, grafo.node[v]['lam'])
                      for v in grafo.node if grafo.node[v]['pred'] != None]
+
+    lista_arestas.append((r, r, 0))
+
     g_out.add_weighted_edges_from(lista_arestas)
 
     return g_out
